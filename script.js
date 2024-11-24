@@ -1,34 +1,113 @@
-const checkPermission = () => {
-  if (!('serviceWorker' in navigator)) {
-    throw new Error("No support for service worker!");
-  }
+const textArea = document.querySelector(".text-area");
+const mensaje = document.querySelector("#myOutput");
 
-  if (!('Notification' in window)) {
-    throw new Error("No support for notification API");
-  }
-};
+let textoOriginal = ''; // Variable para almacenar el texto original encriptado
 
-const registerSW = async () => {
-  const registration = await navigator.serviceWorker.register('serviceWorker.js');
-  return registration;
-};
-
-const requestNotificationPermission = async () => {
-  const permission = await Notification.requestPermission();
-
-  if (permission !== 'granted') {
-    throw new Error("Notification permission not granted");
-  } else {
-    new Notification("Hello world");
-  }
-};
-
-const main = async () => {
-  checkPermission();
-  cost reg = registerSW();
-  reg.showNotification("Nuevas promociones")
+function btnEncriptar() {
+    textoOriginal = textArea.value; // Guardamos el texto original antes de encriptar
+    const textoEncriptado = encriptar(cleanText(textArea.value));
+    mensaje.value = textoEncriptado;
+    textArea.value = "";
+    mensaje.style.backgroundImage = "none";
 }
 
-main()
+function encriptar(stringEncriptada) {
+    let matrizCodigo = [["e", "enter"], ["i", "imes"], ["a", "ai"], ["o", "ober"], ["u", "ufat"]];
+    stringEncriptada = stringEncriptada.toLowerCase();
+
+    for (let i = 0; i < matrizCodigo.length; i++) {
+        if (stringEncriptada.includes(matrizCodigo[i][0])) {
+            stringEncriptada = stringEncriptada.replaceAll(matrizCodigo[i][0], matrizCodigo[i][1]);
+        }
+    }
+    return stringEncriptada;
+}
+
+function btnDesencriptar() {
+    const textoDesencriptado = desencriptar(mensaje.value); // Desencriptamos el texto del área de salida
+    textArea.value = textoOriginal; // Restauramos el texto original en el área de entrada
+    mensaje.value = textoDesencriptado;
+    mensaje.style.backgroundImage = "none";
+}
+
+function desencriptar(stringDesencriptada) {
+    let matrizCodigo = [["e", "enter"], ["i", "imes"], ["a", "ai"], ["o", "ober"], ["u", "ufat"]];
+    stringDesencriptada = stringDesencriptada.toLowerCase();
+
+    for (let i = 0; i < matrizCodigo.length; i++) {
+        if (stringDesencriptada.includes(matrizCodigo[i][1])) {
+            stringDesencriptada = stringDesencriptada.replaceAll(matrizCodigo[i][1], matrizCodigo[i][0]);
+        }
+    }
+    return stringDesencriptada;
+}
+
+function copyText() {
+    let output = document.getElementById("myOutput");
+    output.select();
+    document.execCommand('copy');
+}
+
+function clearText() {
+  textArea.value = ''; // Limpia el textarea de entrada
+  mensaje.value = ''; // Limpia el textarea de salida
+}
+
+// Función para limpiar el texto: minúsculas, sin acentos ni signos
+function cleanText(text) {
+    return text.toLowerCase() // Convertir a minúsculas
+        .normalize('NFD') // Descomponer caracteres acentuados
+        .replace(/[\u0300-\u036f]/g, '') // Eliminar acentos
+        .replace(/[^a-z\s]/g, ''); // Eliminar caracteres no alfabéticos (excepto espacios)
+}
+
+textArea.addEventListener('input', function() {
+    textArea.value = cleanText(textArea.value);
+});
+
+const button = document.getElementById("notifications");
+button.addEventListener("click",() => {
+    Notification.requestPermission().then((result) => {
+        if (result === "granted"){
+            randomNotification();
+        }
+    })
+});
+
+const datos = [
+    { name: "NotiCript ¡Hora de Encriptar!", author: "Alex Salas", slug: "icon-128-128" },
+];
+
+function randomNotification(){
+    const randomItem = Math.floor(Math.random() * datos.length);
+    const notiTitle = datos[randomItem].name;
+    const notiBody = `Created by ${datos[randomItem].author}`;
+    const notiImg = `/challenge_encriptador_oracle/assets/${datos[randomItem].slug}.png`;
+
+    const options = {
+        body: notiBody,
+        icon: notiImg,
+    };
+
+    // Enviar la notificación desde el service worker
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.ready.then(function(registration) {
+            registration.showNotification(notiTitle, options);
+        });
+    }
+
+    setTimeout(randomNotification, 30000);  // Enviar notificaciones cada 30 segundos
+}
+
+// Registrar el Service Worker
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/challenge_encriptador_oracle/sw.js')
+    .then((registration) => {
+      console.log('Service Worker registrado con éxito:', registration);
+    })
+    .catch((error) => {
+      console.error('Error al registrar el Service Worker:', error);
+    });
+}
 
 
