@@ -25,8 +25,13 @@ const requestNotificationPermission = async () => {
 
 const main = async () => {
   checkPermission();
-  cost reg = registerSW();
-  reg.showNotification("Nuevas promociones")
-}
+  const reg = await registerSW();
+  reg.showNotification("Nuevas promociones", {
+    body: "¡No te pierdas nuestras ofertas!",
+    icon: "img/bundesliga-logo.png", // Asegúrate de tener un ícono.
+    vibrate: [100, 50, 100], // Vibración para dispositivos móviles.
+  });
+};
 
-main()
+main();
+
