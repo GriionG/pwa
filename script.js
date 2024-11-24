@@ -23,6 +23,10 @@ const requestNotificationPermission = async () => {
   }
 };
 
-checkPermission();
-registerSW();
-requestNotificationPermission();
+const main = async () => {
+  checkPermission();
+  cost reg = registerSW();
+  reg.showNotification("Nuevas promociones")
+}
+
+main()
