@@ -8,14 +8,14 @@ button.addEventListener("click",() => {
 });
 
 const datos = [
-    { name: "GoalGear!", author: "Cris Martinez"" },
+    { name: "Nuevas Ofertas!", author: "GearGoal"" },
 ];
 
 function randomNotification(){
     const randomItem = Math.floor(Math.random() * datos.length);
     const notiTitle = datos[randomItem].name;
     const notiBody = `Created by ${datos[randomItem].author}`;
-    const notiImg = `/img/bundesliga-logo.png`;
+    const notiImg = `img/bundesliga-logo.png`;
 
     const options = {
         body: notiBody,
