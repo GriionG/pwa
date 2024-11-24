@@ -101,7 +101,7 @@ function randomNotification(){
 
 // Registrar el Service Worker
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/challenge_encriptador_oracle/sw.js')
+  navigator.serviceWorker.register('/challenge_encriptador_oracle/SW.js')
     .then((registration) => {
       console.log('Service Worker registrado con éxito:', registration);
     })
