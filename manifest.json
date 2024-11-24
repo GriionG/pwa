@@ -14,10 +14,6 @@
     {
       "src": "/img/foto-30.png",
       "type": "image/png", "sizes": "200x220"
-    },
-    {
-      "src": "/img/foto-27.png",
-      "type": "image/png", "sizes": "200x200"
     }
   ]
 }
