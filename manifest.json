@@ -8,12 +8,12 @@
   "start_url": "index.html",
   "icons": [
     {
-      "src": "/img/Logo-goal.png",
+      "src": "img/Logo-goal.png",
       "type": "image/png", "sizes": "400x236"
     },
     {
-      "src": "/img/foto-30.png",
-      "type": "image/png", "sizes": "160x160"
+      "src": "/img/bundesliga-logo.png",
+      "type": "image/png", "sizes": "128x128"
     }
   ]
 }
