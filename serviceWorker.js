@@ -24,3 +24,17 @@ self.addEventListener("fetch", fetchEvent => {
     })
   )
 })
+
+// service-worker.js
+self.addEventListener('push', function(event) {
+  const data = event.data ? event.data.text() : 'Notificación sin datos';
+  const options = {
+    body: data,
+    icon: '/img/Logo-goal.png',
+    badge: '/img/bundesliga-logo.png'
+  };
+  event.waitUntil(
+    self.registration.showNotification('Notificación Push', options)
+  );
+});
+
