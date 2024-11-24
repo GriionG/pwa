@@ -12,10 +12,6 @@
       "type": "image/png", "sizes": "400x236"
     },
     {
-      "src": "/img/Liga-premier-logo.png",
-      "type": "image/png", "sizes": "500x500"
-    },
-    {
       "src": "/img/liga-MX-logo.png",
       "type": "image/png","sizes": "500x500"
     },
