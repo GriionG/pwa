@@ -29,7 +29,7 @@ function randomNotification(){
         });
     }
 
-    setTimeout(randomNotification, 30000);  // Enviar notificaciones cada 30 segundos
+   setTimeout(randomNotification, 3600000); // 1 hora en milisegundos  
 }
 
 // Registrar el Service Worker
