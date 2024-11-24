@@ -25,6 +25,20 @@ self.addEventListener("fetch", fetchEvent => {
   )
 })
 
-console.log("This message is form the service worker")
+// Aquí se gestionan las notificaciones push
+self.addEventListener('push', event => {
+  const options = {
+    body: event.data.text(),
+    icon: '/img/bundesliga-logo.png', // O el ícono de tu elección
+    badge: '/img/Logo-goal.png', // O un ícono para la notificación
+  };
+
+  event.waitUntil(
+    self.registration.showNotification("Nueva Notificación", options)
+  );
+});
+
+console.log("This message is from the service worker");
+
 
 
