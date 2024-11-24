@@ -14,6 +14,10 @@
     {
       "src": "img/bundesliga-logo.png",
       "type": "image/png", "sizes": "128x128"
+    },
+    {
+      "src": "img/ligue-1-logo.png",
+      "type": "image/png", "sizes": "144x144"
     }
   ]
 }
