@@ -16,8 +16,8 @@
       "type": "image/png", "sizes": "128x128"
     },
     {
-      "src": "img/ligue-1-logo.png",
-      "type": "image/png", "sizes": "144x75"
+      "src": "img/col.png",
+      "type": "image/png", "sizes": "144x144"
     }
   ]
 }
