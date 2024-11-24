@@ -5,7 +5,7 @@ const assets = [
   "/css/style1.css",
   "/js/app.js",
   "/img/Logo-goal.png",
-  "/img/foto-30.png",
+  "/img/bundesliga-logo.png",
 ]
 
 self.addEventListener("install", installEvent => {
