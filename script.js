@@ -8,7 +8,7 @@ button.addEventListener("click",() => {
 });
 
 const datos = [
-    { name: "Nuevas Ofertas!", author: "GearGoal"" },
+    { name: "Nuevas Ofertas!", author: "GearGoal" },
 ];
 
 function randomNotification(){
