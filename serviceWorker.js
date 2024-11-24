@@ -5,7 +5,6 @@ const assets = [
   "/css/style1.css",
   "/js/app.js",
   "/img/Logo-goal.png",
-  "/img/Liga-premier-logo.png",
   "/img/liga-MX-logo.png",
   "/img/foto-30.png",
   "/img/foto-27.png",
