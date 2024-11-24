@@ -6,7 +6,6 @@ const assets = [
   "/js/app.js",
   "/img/Logo-goal.png",
   "/img/foto-30.png",
-  "/img/foto-27.png",
 ]
 
 self.addEventListener("install", installEvent => {
