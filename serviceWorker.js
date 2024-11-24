@@ -25,5 +25,6 @@ self.addEventListener("fetch", fetchEvent => {
   )
 })
 
+console.log("This message is form the service worker")
 
 
