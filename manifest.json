@@ -13,11 +13,11 @@
     },
     {
       "src": "/img/foto-30.png",
-      "type": "image/png", "sizes": "800x800"
+      "type": "image/png", "sizes": "200x220"
     },
     {
       "src": "/img/foto-27.png",
-      "type": "image/png", "sizes": "1000x1000"
+      "type": "image/png", "sizes": "200x200"
     }
   ]
 }
