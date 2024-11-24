@@ -12,7 +12,7 @@ const coffees = [
 ]
 const showCoffees = () => {
   let output = ""
-  coffees.forEach(
+  goal.forEach(
     ({ name, image }) =>
       (output += `
               <div class="card">
@@ -25,4 +25,13 @@ const showCoffees = () => {
   container.innerHTML = output
 }
 
-document.addEventListener("DOMContentLoaded", showCoffees)
+document.addEventListener("DOMContentLoaded", showgoal)
+
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", function() {
+    navigator.serviceWorker
+      .register("/serviceWorker.js")
+      .then(res => console.log("service worker registered"))
+      .catch(err => console.log("service worker not registered", err))
+  })
+}
