@@ -2,6 +2,7 @@ const container = document.querySelector(".container");
 const coffees = [
   { name: "logo", image: "/img/Logo-goal.png" },
   { name: "bundesliga", image: "/img/bundesliga-logo.png" },
+  { name: "ligueOne", image: "/img/ligue-1-logo.png" },
 ];
 const showCoffees = () => {
   let output = "";
