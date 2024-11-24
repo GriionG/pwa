@@ -25,6 +25,7 @@ self.addEventListener("fetch", fetchEvent => {
   )
 })
 
+// Escuchar los eventos de 'push' para las notificaciones
 self.addEventListener('push', (event) => {
     let notificationData = event.data.json();
     const options = {
