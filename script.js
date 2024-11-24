@@ -14,7 +14,7 @@ const datos = [
 function randomNotification(){
     const randomItem = Math.floor(Math.random() * datos.length);
     const notiTitle = datos[randomItem].name;
-    const notiBody = `Created by ${datos[randomItem].author}`;
+    const notiBody = ` `;
     const notiImg = `img/bundesliga-logo.png`;
 
     const options = {
