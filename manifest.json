@@ -1,0 +1,24 @@
+{
+  "name": "GoalGear",
+  "short_name": "GoalGear",
+  "description": "ecomerce de jerseys de futbol",
+  "theme_color": "#000000",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "oriendtation": "portrait",
+  "scope": "./",
+  "start_url": "index.html",
+  "lang": "es-MX",
+  "icons": [
+    {
+      "src": "/img/logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/img/icono-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
