@@ -8,14 +8,14 @@ button.addEventListener("click",() => {
 });
 
 const datos = [
-    { name: "NotiCript ¡Hora de Encriptar!", author: "Alex Salas", slug: "icon-128-128" },
+    { name: "GoalGear!", author: "Cris Martinez", slug: "bundesliga-logo" },
 ];
 
 function randomNotification(){
     const randomItem = Math.floor(Math.random() * datos.length);
     const notiTitle = datos[randomItem].name;
     const notiBody = `Created by ${datos[randomItem].author}`;
-    const notiImg = `/challenge_encriptador_oracle/assets/${datos[randomItem].slug}.png`;
+    const notiImg = `/img/${datos[randomItem].slug}.png`;
 
     const options = {
         body: notiBody,
@@ -34,7 +34,7 @@ function randomNotification(){
 
 // Registrar el Service Worker
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/challenge_encriptador_oracle/SW.js')
+  navigator.serviceWorker.register('serviceWorker.js')
     .then((registration) => {
       console.log('Service Worker registrado con éxito:', registration);
     })
