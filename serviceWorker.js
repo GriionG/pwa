@@ -51,8 +51,8 @@ self.addEventListener("push", (event) => {
 
   const options = {
     body: notificationData.body || "Default body content",
-    icon: notificationData.icon || "/img/Logo-goal.png",
-    badge: notificationData.badge || "/img/bundesliga-logo.png",
+    icon: notificationData.icon || "img/Logo-goal.png",
+    badge: notificationData.badge || "img/bundesliga-logo.png",
   };
 
   event.waitUntil(
