@@ -127,54 +127,6 @@ function mostrarContenido() {
             </div>
         </div>
         <!-- Top bar End -->
-        
-      <script>
-        // Función para configurar la barra de navegación
-function configurarNavBar() {
-    const usuario = obtenerUsuarioLogueado(); // Obtener usuario de localStorage
-    const navLinks = document.getElementById("nav-links");
-    const userSection = document.getElementById("user-section");
-
-    if (!navLinks || !userSection) {
-        console.error("No se encontraron los elementos 'nav-links' o 'user-section'.");
-        return;
-    }
-
-    // Limpiar el contenido existente
-    navLinks.innerHTML = `
-        <a href="index.php" class="nav-item nav-link active">Inicio</a>
-        <a href="product-list.php" class="nav-item nav-link">Productos</a>
-        <a href="cart.php" class="nav-item nav-link">Carrito</a>
-        <a href="my-account.php" class="nav-item nav-link">Conócenos</a>
-    `;
-
-    // Agregar links adicionales si el usuario está logueado
-    if (usuario) {
-        if (usuario.privilegio === "Usuario" || usuario.privilegio === "Admin") {
-            navLinks.innerHTML += `<a href="contact.php" class="nav-item nav-link">Contáctanos</a>`;
-        }
-
-        // Mostrar información del usuario
-        userSection.innerHTML = `
-            <div class="nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">${usuario.nombre}</a>
-                <div class="dropdown-menu">
-                    <a href="profile.php" class="dropdown-item">Perfil</a>
-                    ${usuario.privilegio === "Admin" ? '<a href="brands.php" class="dropdown-item">Admin</a>' : ""}
-                    <a href="#" class="dropdown-item" onclick="cerrarSesion()">Cerrar sesión</a>
-                </div>
-            </div>
-        `;
-    } else {
-        // Mostrar links para usuarios no autenticados
-        userSection.innerHTML = `<a href="login.html" class="nav-item nav-link" style="padding-right:80px;">Iniciar sesión</a>`;
-        navLinks.innerHTML += `<a href="register.php" class="nav-item nav-link">Registrarse</a>`;
-    }
-}
-
-// Configurar la barra de navegación al cargar la página
-document.addEventListener("DOMContentLoaded", configurarNavBar);
-      </script>
         <!-- Nav Bar End -->    
          <script>
 function configurarNavBar() {
