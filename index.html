@@ -17,6 +17,95 @@
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
         <link rel="stylesheet" href="css/style1.css">
         <link rel="manifest" href="manifest.json" />
+         <script>
+            // Simulación de usuarios registrados
+            const usuarios = [
+                {
+                    id_usuario: 1,
+                    email: "user1@example.com",
+                    password: "1234",
+                    nombre: "Juan",
+                    apellidos: "Pérez",
+                    direccion: "Calle Falsa 123",
+                    telefono: "5551234567",
+                    descripcion: "Usuario regular",
+                    privilegio: "Usuario",
+                    discapacidad: "Daltonico",
+                    pregunta: "¿Color favorito?",
+                    respuesta: "Azul"
+                },
+                {
+                    id_usuario: 2,
+                    email: "admin@example.com",
+                    password: "admin123",
+                    nombre: "Ana",
+                    apellidos: "López",
+                    direccion: "Avenida Siempre Viva 742",
+                    telefono: "5559876543",
+                    descripcion: "Administrador del sistema",
+                    privilegio: "Admin",
+                    discapacidad: "Ninguna",
+                    pregunta: "¿Ciudad natal?",
+                    respuesta: "México"
+                }
+            ];
+             // Función para iniciar sesión
+        function iniciarSesion(email, password) {
+            const usuario = usuarios.find(user => user.email === email && user.password === password);
+            if (usuario) {
+                // Guardar datos del usuario en localStorage
+                localStorage.setItem("usuario", JSON.stringify(usuario));
+                alert(`Bienvenido, ${usuario.nombre}`);
+                location.href = "index.html"; // Redirige al inicio
+            } else {
+                alert("Correo o contraseña incorrectos.");
+            }
+        }
+
+        // Obtener datos del usuario logueado
+        function obtenerUsuarioLogueado() {
+            return JSON.parse(localStorage.getItem("usuario"));
+        }
+
+        // Cerrar sesión
+        function cerrarSesion() {
+            localStorage.removeItem("usuario");
+            alert("Sesión cerrada.");
+            location.href = "login.html"; // Redirige al login
+        }
+    </script>
+    <script>
+        // Mostrar contenido según el usuario logueado
+        function mostrarContenido() {
+            const usuario = obtenerUsuarioLogueado();
+            if (!usuario) {
+                alert("Debes iniciar sesión.");
+                location.href = "login.html";
+                return;
+            }
+    
+            // Personalizar página
+            document.getElementById("user-name").textContent = `Bienvenido, ${usuario.nombre}`;
+            document.getElementById("bienvenida").textContent = `Hola ${usuario.nombre} ${usuario.apellidos}, tienes privilegio de ${usuario.privilegio}.`;
+            document.getElementById("discapacidad").textContent = `Discapacidad registrada: ${usuario.discapacidad}.`;
+    
+            // Cambiar archivo CSS según discapacidad
+            let cssLink = document.createElement("link");
+            cssLink.rel = "stylesheet";
+            if (usuario.discapacidad === "Daltonico") {
+                cssLink.href = "css/style-daltonico.css";
+            } else if (usuario.discapacidad === "Miope") {
+                cssLink.href = "css/style-miope.css";
+            } else if (usuario.discapacidad === "Ciego") {
+                cssLink.href = "css/style1.css";
+            } else if (usuario.discapacidad === "Ninguna") {
+                cssLink.href = "css/style1.css";
+            } else {
+                cssLink.href = "css/style1.css";
+            }
+            document.head.appendChild(cssLink); // Agregar el enlace CSS al <head>
+        }
+    </script>
     </head>
 
     <body>
@@ -38,27 +127,50 @@
         </div>
         <!-- Top bar End -->
         
-        <!-- Nav Bar Start -->
-        <div class="nav">
-            <div class="container-fluid">
-                <nav class="navbar navbar-expand-md bg-dark navbar-dark">
-                    <a href="#" class="navbar-brand">MENU</a>
-                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
+        <script>
+function configurarNavBar() {
+    const usuario = obtenerUsuarioLogueado(); // Obtener usuario de localStorage
+    const navLinks = document.getElementById("nav-links");
+    const userSection = document.getElementById("user-section");
 
-                    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                         <div class="navbar-nav mr-auto">
-                            <a href="index.php" class="nav-item nav-link active">Inicio</a>
-                            <a href="product-list.php" class="nav-item nav-link">Productos</a>
-                            <a href="cart.php" class="nav-item nav-link">Carrito</a>
-                            <a href="my-account.php" class="nav-item nav-link">Conocenos</a>
-                            <a href="contact.php" class="nav-item nav-link">Contactanos</a>   
-                            </div>
-                        </div>       
-                    </nav>	
+    if (!navLinks || !userSection) {
+        console.error("No se encontraron los elementos 'nav-links' o 'user-section'.");
+        return;
+    }
+
+    // Limpia el contenido existente
+    navLinks.innerHTML = `
+        <a href="index.php" class="nav-item nav-link active">Inicio</a>
+        <a href="my-account.php" class="nav-item nav-link">Conócenos</a>
+    `;
+
+    if (usuario) {
+        // Agregar links adicionales si el usuario está logueado
+        if (usuario.privilegio === "Usuario" || usuario.privilegio === "Admin") {
+            navLinks.innerHTML += `<a href="contact.php" class="nav-item nav-link">Contáctanos</a>`;
+        }
+
+        // Mostrar información del usuario
+        userSection.innerHTML = `
+            <div class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">${usuario.nombre}</a>
+                <div class="dropdown-menu">
+                    <a href="porfile.php" class="dropdown-item">Perfil</a>
+                    ${usuario.privilegio === "Admin" ? '<a href="brands.php" class="dropdown-item">Admin</a>' : ""}
+                    <a href="#" class="dropdown-item" onclick="cerrarSesion()">Cerrar sesión</a>
                 </div>
-         </div>
+            </div>
+        `;
+    } else {
+        // Mostrar links para usuarios no autenticados
+        userSection.innerHTML = `<a href="login.html" class="nav-item nav-link" style="padding-right:80px;">Iniciar sesión</a>`;
+        
+    }
+}
+
+// Configurar la barra de navegación al cargar la página
+document.addEventListener("DOMContentLoaded", configurarNavBar);
+        </script>
        
         <!-- Nav Bar End -->      
         
