@@ -16,7 +16,7 @@
         <!-- CSS Libraries -->
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-        <link href="lib/slick/slick.css" rel="stylesheet">
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <link rel="manifest" href="manifest.json" />
 
         <!-- Template Stylesheet -->
@@ -163,40 +163,31 @@
         </div>
         <!-- Nav Bar End -->     
         
-        <!-- Login Start -->
-        <div class="datos-cent">
-            <div class="login">
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-7 col-md-10 col-sm-12">    
-                            <div class="register-form datos-cent">
-                                <form id="frminsertar" name="frminsertar" method="POST" onsubmit="iniciarSesion(event)">
-                                    <div class="row">
-                                        <div class="col-12 mb-3">
-                                            <label for="txtcorreo">Correo</label>
-                                            <input class="form-control" name="txtcorreo" id="txtcorreo" maxlength="100" minlength="8" placeholder="Correo" required>
-                                        </div>
-                                        <div class="col-12 mb-3">
-                                            <label for="txtContraseña">Contraseña</label>
-                                            <input class="form-control" type="password" name="txtcontraseña" id="txtContraseña" maxlength="100" minlength="4" placeholder="Contraseña" required>
-                                            <input type="checkbox" name="cajita" onclick="mostrar()"> <label>Mostrar contraseña</label>
-                                        </div>
-                                        <div class="col-12 text-center mb-3">
-                                            <input type="submit" class="btn btn-primary" value="Inicio">
-                                        </div>
-                                    </div>
-                                </form>
-                                <div class="text-center">
-                                    <a href="recover-password.html" class="d-block mb-2">¿Has olvidado tu contraseña?</a>
-                                    <a href="register.html" class="d-block">¿No tienes cuenta?</a>
-                                </div>
-                            </div>
+      <div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-lg-7 col-md-10 col-sm-12">
+            <div class="register-form datos-cent">
+                <form id="frminsertar" name="frminsertar" method="POST" onsubmit="iniciarSesion(event)">
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <label for="txtcorreo">Correo</label>
+                            <input class="form-control" name="txtcorreo" id="txtcorreo" maxlength="100" minlength="8" placeholder="Correo" required>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <label for="txtContraseña">Contraseña</label>
+                            <input class="form-control" type="password" name="txtcontraseña" id="txtContraseña" maxlength="100" minlength="4" placeholder="Contraseña" required>
+                            <input type="checkbox" name="cajita" onclick="mostrar()"> <label>Mostrar contraseña</label>
+                        </div>
+                        <div class="col-12 text-center mb-3">
+                            <input type="submit" class="btn btn-primary" value="Inicio">
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
-        <!-- Login End -->
+    </div>
+</div>
+
         
         <!-- Footer Start -->
         <div class="footer">
