@@ -9,7 +9,6 @@ body {
 }
 
 .boddy {
-    background-image: url('..img/foto-18.jpg');
     background-color:  rgba(244, 58, 80, .5); /* Color rojo con opacidad 0.5 */
     background-blend-mode: overlay; /* Mezcla la imagen de fondo y el color */
     background-size: cover; /* Ajusta la imagen de fondo para cubrir todo el área */
