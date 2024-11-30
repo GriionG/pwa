@@ -228,44 +228,40 @@ function mostrar(){
         
         
         <!-- Breadcrumb End -->
-        
-        <!-- Login Start -->
-        <div class="datos-cent">
-        <div class="login">
-            <div class="container" >
-                <div class="row " >
-                    <div class="col-lg-7">    
-                        <div class="register-form datos-cent">
+    <!-- Login Start -->
+<div class="datos-cent">
+    <div class="login">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-7 col-md-10 col-sm-12">    
+                    <div class="register-form datos-cent">
+                        <form id="frminsertar" name="frminsertar" method="POST" onsubmit="iniciarSesion(event)">
                             <div class="row">
-                            <form id="frminsertar" name="frminsertar" method="POST" onsubmit="iniciarSesion(event)">
-    <div class="col-md-10">
-        <label>Correo</label>
-        <input class="form-control" name="txtcorreo" id="txtcorreo" maxlength="100" minlength="8" placeholder="Correo" style="width: 425px;">
-    </div>
-    <div class="col-md-10">
-        <label>Password</label>
-        <input class="form-control" type="password" name="txtcontraseña" id="txtContraseña" maxlength="100" minlength="4" placeholder="Contraseña" style="width: 425px;">
-        <input type="checkbox" name="cajita" onclick="mostrar()"> <label>Mostrar contraseña</label>
-    </div>
-    <br>
-    <div class="col-md-12" style="padding-left:43%;">
-        <input type="submit" class="btn" value="Inicio">
-    </div>
-    <br><br>
-</form>
-<div>
-    <a href="recover-password.html" style="padding-left: 120px;">¿Has olvidado tu contraseña?</a>
-    <a href="register.html" style="padding-left: 160px;">¿No tienes cuenta?</a>
-</div>
+                                <div class="col-12 mb-3">
+                                    <label for="txtcorreo">Correo</label>
+                                    <input class="form-control" name="txtcorreo" id="txtcorreo" maxlength="100" minlength="8" placeholder="Correo" required>
+                                </div>
+                                <div class="col-12 mb-3">
+                                    <label for="txtContraseña">Contraseña</label>
+                                    <input class="form-control" type="password" name="txtcontraseña" id="txtContraseña" maxlength="100" minlength="4" placeholder="Contraseña" required>
+                                    <input type="checkbox" name="cajita" onclick="mostrar()"> <label>Mostrar contraseña</label>
+                                </div>
+                                <div class="col-12 text-center mb-3">
+                                    <input type="submit" class="btn btn-primary" value="Inicio">
+                                </div>
                             </div>
+                        </form>
+                        <div class="text-center">
+                            <a href="recover-password.html" class="d-block mb-2">¿Has olvidado tu contraseña?</a>
+                            <a href="register.html" class="d-block">¿No tienes cuenta?</a>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
+    </div>
 </div>
-        <!-- Login End -->
+<!-- Login End -->
         
        <!-- Footer Start -->
        <div class="footer">
