@@ -17,7 +17,7 @@
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
         <link rel="stylesheet" href="css/style1.css">
         <link rel="manifest" href="manifest.json" />
-         <script>
+        <script>
             // Simulación de usuarios registrados
             const usuarios = [
                 {
@@ -110,7 +110,6 @@
 
     <body>
         <!-- Top bar Start -->
-       
         <div class="top-bar">
             <div class="container-fluid">
                 <div class="row">
@@ -127,6 +126,26 @@
         </div>
         <!-- Top bar End -->
         
+        <div class="nav">
+            <div class="container-fluid">
+                <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+                    <a href="#" class="navbar-brand">MENU</a>
+                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+        
+                    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                        <div class="navbar-nav mr-auto" id="nav-links">
+                            <!-- Links se generarán dinámicamente -->
+                        </div>
+                        <div id="user-section">
+                            <!-- Sección del usuario se generará dinámicamente -->
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        
         <script>
 function configurarNavBar() {
     const usuario = obtenerUsuarioLogueado(); // Obtener usuario de localStorage
@@ -140,8 +159,8 @@ function configurarNavBar() {
 
     // Limpia el contenido existente
     navLinks.innerHTML = `
-        <a href="index.php" class="nav-item nav-link active">Inicio</a>
-        <a href="my-account.php" class="nav-item nav-link">Conócenos</a>
+        <a href="index.html" class="nav-item nav-link active">Inicio</a>
+        <a href="my-account.html" class="nav-item nav-link">Conócenos</a>
     `;
 
     if (usuario) {
@@ -171,8 +190,7 @@ function configurarNavBar() {
 // Configurar la barra de navegación al cargar la página
 document.addEventListener("DOMContentLoaded", configurarNavBar);
         </script>
-       
-        <!-- Nav Bar End -->      
+         
         
         <!-- Bottom Bar Start -->
         <div class="bottom-bar">
@@ -185,7 +203,7 @@ document.addEventListener("DOMContentLoaded", configurarNavBar);
                             </a>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6"> 
                         <div class="search">
                             <form action="product-list.php" method="post">
                                                 <input type="text"  class="form-control" name="txtbuscar" id="txtbuscar" placeholder="Buscar">
@@ -332,7 +350,7 @@ document.addEventListener("DOMContentLoaded", configurarNavBar);
                             </a>
                         </div>
                         <div class="category-item ch-150">
-                            <img src="img/col.png" style="" />
+                            <img src="img/foto-12.jpg" style="" />
                             <a class="category-name" href="">
                                 <p>Supera tus limites y se como CR7</p>
                             </a>
@@ -794,8 +812,8 @@ document.addEventListener("DOMContentLoaded", configurarNavBar);
                         <div class="footer-widget">
                             <h2>Notificaciones</h2>
                             <div class="contact-info">
-                                <div class="social">                    
-                                <button id="notifications" class="btn">Habilitar Notificaciones</button> 
+                                <div class="social">
+                                    <button id="notifications" type="hidden" class="btn">Habilitar Notificaciones</button> 
                                 </div>
                             </div>
                         </div>
@@ -868,6 +886,6 @@ document.addEventListener("DOMContentLoaded", configurarNavBar);
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
         
         <!-- Template Javascript -->
-         <script defer src="script.js"></script>   
+        <script defer src="script.js"></script>       
     </body>
 </html>
