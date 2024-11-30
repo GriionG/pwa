@@ -15,134 +15,104 @@
 
         <!-- CSS Libraries -->
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">\
+         <link rel="manifest" href="manifest.json" />
         <link rel="stylesheet" href="css/style1.css">
+ <link rel="manifest" href="manifest.json" />
 
-        <script>
+       <script>
         // Simulación de usuarios registrados
-        const usuarios = [
-            {
-                id_usuario: 1,
-                email: "user1@example.com",
-                password: "1234",
-                nombre: "Juan",
-                apellidos: "Pérez",
-                direccion: "Calle Falsa 123",
-                telefono: "5551234567",
-                descripcion: "Usuario regular",
-                privilegio: "Usuario",
-                discapacidad: "Daltonico",
-                pregunta: "¿Color favorito?",
-                respuesta: "Azul"
-            },
-            {
-                id_usuario: 2,
-                email: "admin@example.com",
-                password: "admin123",
-                nombre: "Ana",
-                apellidos: "López",
-                direccion: "Avenida Siempre Viva 742",
-                telefono: "5559876543",
-                descripcion: "Administrador del sistema",
-                privilegio: "Admin",
-                discapacidad: "Ninguna",
-                pregunta: "¿Ciudad natal?",
-                respuesta: "México"
-            }
-        ];
+const usuarios = [
+    {
+        id_usuario: 1,
+        email: "user1@example.com",
+        password: "1234",
+        nombre: "Juan",
+        apellidos: "Pérez",
+        direccion: "Calle Falsa 123",
+        telefono: "5551234567",
+        descripcion: "Usuario regular",
+        privilegio: "Usuario",
+        discapacidad: "Daltonico",
+        pregunta: "¿Color favorito?",
+        respuesta: "Azul"
+    },
+    {
+        id_usuario: 2,
+        email: "admin@example.com",
+        password: "admin123",
+        nombre: "Ana",
+        apellidos: "López",
+        direccion: "Avenida Siempre Viva 742",
+        telefono: "5559876543",
+        descripcion: "Administrador del sistema",
+        privilegio: "Admin",
+        discapacidad: "Ninguna",
+        pregunta: "¿Ciudad natal?",
+        respuesta: "México"
+    }
+];
 
-        // Función para iniciar sesión
-        function iniciarSesion(email, password) {
-            const usuario = usuarios.find(user => user.email === email && user.password === password);
-            if (usuario) {
-                localStorage.setItem("usuario", JSON.stringify(usuario));
-                alert(`Bienvenido, ${usuario.nombre}`);
-                location.href = "index.html"; 
-            } else {
-                alert("Correo o contraseña incorrectos.");
-            }
-        }
+// Función para iniciar sesión
+function iniciarSesion(email, password) {
+    const usuario = usuarios.find(user => user.email === email && user.password === password);
+    if (usuario) {
+        // Guardar datos del usuario en localStorage
+        localStorage.setItem("usuario", JSON.stringify(usuario));
+        alert(Bienvenido, ${usuario.nombre});
+        location.href = "index.html"; // Redirige al inicio
+    } else {
+        alert("Correo o contraseña incorrectos.");
+    }
+}
 
-        // Obtener datos del usuario logueado
-        function obtenerUsuarioLogueado() {
-            return JSON.parse(localStorage.getItem("usuario"));
-        }
+// Obtener datos del usuario logueado
+function obtenerUsuarioLogueado() {
+    return JSON.parse(localStorage.getItem("usuario"));
+}
 
-        // Cerrar sesión
-        function cerrarSesion() {
-            localStorage.removeItem("usuario");
-            alert("Sesión cerrada.");
-            location.href = "login.html";
-        }
+// Cerrar sesión
+function cerrarSesion() {
+    localStorage.removeItem("usuario");
+    alert("Sesión cerrada.");
+    location.href = "login.html"; // Redirige al login
+}
 
-        // Configurar la barra de navegación y mostrar contenido según el usuario logueado
-        function configurarNavBar() {
-            const usuario = obtenerUsuarioLogueado();
-            const navLinks = document.getElementById("nav-links");
-            const userSection = document.getElementById("user-section");
+// Mostrar contenido y cambiar el estilo según el usuario logueado
+function mostrarContenido() {
+    const usuario = obtenerUsuarioLogueado();
+    if (!usuario) {
+        alert("Debes iniciar sesión.");
+        location.href = "login.html";
+        return;
+    }
 
-            if (!navLinks || !userSection) {
-                console.error("No se encontraron los elementos 'nav-links' o 'user-section'.");
-                return;
-            }
+    // Personalizar página
+    document.getElementById("user-name").textContent = Bienvenido, ${usuario.nombre};
+    document.getElementById("bienvenida").textContent = Hola ${usuario.nombre} ${usuario.apellidos}, tienes privilegio de ${usuario.privilegio}.;
+    document.getElementById("discapacidad").textContent = Discapacidad registrada: ${usuario.discapacidad}.;
 
-            navLinks.innerHTML = `
-                <a href="index.html" class="nav-item nav-link active">Inicio</a>
-                <a href="my-account.html" class="nav-item nav-link">Conócenos</a>
-            `;
+    // Cambiar archivo CSS según discapacidad
+    let cssLink = document.createElement("link");
+    cssLink.rel = "stylesheet";
+    if (usuario.discapacidad === "Daltonico") {
+        cssLink.href = "css/style-daltonico.css";
+    } else if (usuario.discapacidad === "Miope") {
+        cssLink.href = "css/style-miope.css";
+    } else if (usuario.discapacidad === "Ciego") {
+        cssLink.href = "css/style1.css";
+    } else if (usuario.discapacidad === "Ninguna") {
+        cssLink.href = "css/style1.css";
+    }
+    document.head.appendChild(cssLink); // Agregar el enlace CSS al <head>
+}
 
-            if (usuario) {
-                if (usuario.privilegio === "Usuario" || usuario.privilegio === "Admin") {
-                    navLinks.innerHTML += `<a href="contact.php" class="nav-item nav-link">Contáctanos</a>`;
-                }
 
-                userSection.innerHTML = `
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">${usuario.nombre}</a>
-                        <div class="dropdown-menu">
-                            <a href="profile.php" class="dropdown-item">Perfil</a>
-                            ${usuario.privilegio === "Admin" ? '<a href="brands.php" class="dropdown-item">Admin</a>' : ""}
-                            <a href="#" class="dropdown-item" onclick="cerrarSesion()">Cerrar sesión</a>
-                        </div>
-                    </div>
-                `;
-            } else {
-                userSection.innerHTML = `<a href="login.html" class="nav-item nav-link">Iniciar sesión</a>`;
-            }
-        }
-
-        // Mostrar contenido dinámico basado en el usuario
-        function mostrarContenido() {
-            const usuario = obtenerUsuarioLogueado();
-            if (!usuario) {
-                alert("Debes iniciar sesión.");
-                location.href = "login.html";
-                return;
-            }
-
-            document.getElementById("user-name").textContent = `Bienvenido, ${usuario.nombre}`;
-            document.getElementById("bienvenida").textContent = `Hola ${usuario.nombre} ${usuario.apellidos}, tienes privilegio de ${usuario.privilegio}.`;
-            document.getElementById("discapacidad").textContent = `Discapacidad registrada: ${usuario.discapacidad}.`;
-
-            // Cambiar archivo CSS según discapacidad
-            let cssLink = document.createElement("link");
-            cssLink.rel = "stylesheet";
-            if (usuario.discapacidad === "Daltonico") {
-                cssLink.href = "css/style-daltonico.css";
-            } else if (usuario.discapacidad === "Miope") {
-                cssLink.href = "css/style-miope.css";
-            } else if (usuario.discapacidad === "Ciego" || usuario.discapacidad === "Ninguna") {
-                cssLink.href = "css/style1.css";
-            }
-            document.head.appendChild(cssLink);
-        }
-
-        document.addEventListener("DOMContentLoaded", configurarNavBar);
-        </script>
-    </head>
+       </script>
     <body>
-        <!-- Barra superior -->
-        <div class="top-bar">
+        <!-- Top bar Start -->
+              <!-- Top bar Start -->
+              <div class="top-bar">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-6">
@@ -156,35 +126,327 @@
                 </div>
             </div>
         </div>
-        <!-- Barra inferior -->
+        <!-- Top bar End -->
+        <!-- Nav Bar End -->    
+         <script>
+function configurarNavBar() {
+    const usuario = obtenerUsuarioLogueado(); // Obtener usuario de localStorage
+    const navLinks = document.getElementById("nav-links");
+    const userSection = document.getElementById("user-section");
+
+    if (!navLinks || !userSection) {
+        console.error("No se encontraron los elementos 'nav-links' o 'user-section'.");
+        return;
+    }
+
+    // Limpia el contenido existente
+    navLinks.innerHTML = 
+        <a href="index.html" class="nav-item nav-link active">Inicio</a>
+        <a href="my-account.html" class="nav-item nav-link">Conócenos</a>
+    ;
+
+    if (usuario) {
+        // Agregar links adicionales si el usuario está logueado
+        if (usuario.privilegio === "Usuario" || usuario.privilegio === "Admin") {
+            navLinks.innerHTML += <a href="contact.php" class="nav-item nav-link">Contáctanos</a>;
+        }
+
+        // Mostrar información del usuario
+        userSection.innerHTML = 
+            <div class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">${usuario.nombre}</a>
+                <div class="dropdown-menu">
+                    <a href="porfile.php" class="dropdown-item">Perfil</a>
+                    ${usuario.privilegio === "Admin" ? '<a href="brands.php" class="dropdown-item">Admin</a>' : ""}
+                    <a href="#" class="dropdown-item" onclick="cerrarSesion()">Cerrar sesión</a>
+                </div>
+            </div>
+        ;
+    } else {
+        // Mostrar links para usuarios no autenticados
+        userSection.innerHTML = <a href="login.html" class="nav-item nav-link" style="padding-right:80px;">Iniciar sesión</a>;
+        
+    }
+}
+
+// Configurar la barra de navegación al cargar la página
+document.addEventListener("DOMContentLoaded", configurarNavBar);
+        </script>
+        <!-- Bottom Bar Start -->
         <div class="bottom-bar">
             <div class="container-fluid">
                 <div class="row align-items-center">
                     <div class="col-md-3">
                         <div class="logo">
                             <a href="index.html">
-                                <img style="max-width: 60%; height: 100px;" src="img/Logo-goal.png" alt="Logo">
+                                <img style="max-width: 60%; height: 100px; width: 60%;" src="img/Logo-goal.png" alt="Logo">
                             </a>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="search">
-                            <form action="product-list.php" method="post">
-                                <input type="text" class="form-control" name="txtbuscar" id="txtbuscar" placeholder="Buscar">
-                                <button type="submit" name="btnbuscar" id="btnbuscar" class="btn"><i class="fa fa-search"></i></button>
-                            </form>
+                        <form action="product-list.php" method="post">
+                                                <input type="text"  class="form-control" name="txtbuscar" id="txtbuscar" placeholder="Buscar">
+                                                <button type="submit" name="btnbuscar" id="btnbuscar" class="btn"><i class="fa fa-search"></i></button>
+                                </form>
+                            <button><i class="fa fa-search"></i></button>
                         </div>
                     </div>
-                    <div class="col-md-3" id="user-section"></div>
+                    <div class="col-md-3">
+                        <div class="user">
+                            <a href="wishlist.html" class="btn wishlist">
+                                <i class="fa fa-heart"></i>
+                                <span>(0)</span>
+                            </a>
+                            <a href="cart.html" class="btn cart">
+                                <i class="fa fa-shopping-cart"></i>
+                                <span>(0)</span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+        <!-- Bottom Bar End --> 
+        
+        <!-- Breadcrumb Start -->
+        <div class="breadcrumb-wrap">
+            <div class="container-fluid">
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.php">Inicio</a></li>
+                    <li class="breadcrumb-item active">Conocenos</li>
+                </ul>
+            </div>
+        </div>
+        <!-- Breadcrumb End -->
+        
+        <!-- My Account Start -->
+        <div class="my-account">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="nav flex-column nav-pills" role="tablist" aria-orientation="vertical">
+                            <a class="nav-link active" id="dashboard-nav" data-toggle="pill" href="#dashboard-tab" role="tab"><i class="fa fa-tachometer-alt"></i>Conocenos</a>
+                            <a class="nav-link" id="payment-nav" data-toggle="pill" href="#payment-tab" role="tab"><i class="fa fa-credit-card"></i>Metodos de pago</a>
+                            <a class="nav-link" id="address-nav" data-toggle="pill" href="#address-tab" role="tab"><i class="fa fa-map-marker-alt"></i>Dirrecion</a>
+                            <a class="nav-link" href="index.html"><i class="fa fa-sign-out-alt"></i>Regresar</a>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="tab-content">
+                            <div class="tab-pane fade show active" id="dashboard-tab" role="tabpanel" aria-labelledby="dashboard-nav">
+                                <h4>Conocenos</h4>
+                                <p>
+                                    En Goalgear, somos apasionados del fútbol tanto como tú lo eres. Nos dedicamos a proporcionarte la mejor selección de jerseys de fútbol para que luzcas con orgullo los colores de tu equipo favorito.
+<br><br>
+Nuestra misión es ofrecerte no solo prendas de calidad excepcional, sino también una experiencia de compra que te haga sentir parte de la comunidad futbolística. Con una amplia variedad de diseños auténticos y licenciados, estamos comprometidos a satisfacer tus necesidades y expectativas como aficionado al deporte más hermoso del mundo.
+                                </p> 
+                            </div>
+                            <div class="tab-pane fade" id="orders-tab" role="tabpanel" aria-labelledby="orders-nav">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Product</th>
+                                                <th>Date</th>
+                                                <th>Price</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>Product Name</td>
+                                                <td>01 Jan 2020</td>
+                                                <td>$99</td>
+                                                <td>Approved</td>
+                                                <td><button class="btn">View</button></td>
+                                            </tr>
+                                            <tr>
+                                                <td>2</td>
+                                                <td>Product Name</td>
+                                                <td>01 Jan 2020</td>
+                                                <td>$99</td>
+                                                <td>Approved</td>
+                                                <td><button class="btn">View</button></td>
+                                            </tr>
+                                            <tr>
+                                                <td>3</td>
+                                                <td>Product Name</td>
+                                                <td>01 Jan 2020</td>
+                                                <td>$99</td>
+                                                <td>Approved</td>
+                                                <td><button class="btn">View</button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="payment-tab" role="tabpanel" aria-labelledby="payment-nav">
+                                <h4>Metodos de pago</h4>
+                                <p>
+                                    En Goalgear, queremos brindarte la mejor experiencia de compra posible, por lo que aceptamos una variedad de métodos de pago para tu conveniencia. Puedes pagar por tus compras utilizando cualquiera de los siguientes métodos:
+<br><br>
+<T>Tarjetas de Débito: Aceptamos pagos con tarjetas de débito de cualquier banco.
+<br><br>
+Tarjetas de Crédito: Aceptamos todas las principales tarjetas de crédito, incluyendo Visa y Mastercard.
+<br><br>
+PayPal: También aceptamos pagos a través de PayPal, una plataforma segura y ampliamente utilizada para transacciones en línea.
+                            </div>
+                            <div class="tab-pane fade" id="address-tab" role="tabpanel" aria-labelledby="address-nav">
+                                <h4>Dirrecion</h4>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h5>Dirrecion de la tienda</h5>
+                                        <p>Plaza Innova, Piedras Negras, MX</p>
+                                        <p>TEL: +52-878-137-0387</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1750.0509552169065!2d-100.55864243961999!3d28.686597944453197!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x865f8bb632065d1f%3A0xe8453bbfe468f337!2sPlaza%20INOVA!5e0!3m2!1ses-419!2sus!4v1708731958985!5m2!1ses-419!2sus" width="450" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="account-tab" role="tabpanel" aria-labelledby="account-nav">
+                                <h4>Account Details</h4>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input class="form-control" type="text" placeholder="First Name">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input class="form-control" type="text" placeholder="Last Name">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input class="form-control" type="text" placeholder="Mobile">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input class="form-control" type="text" placeholder="Email">
+                                    </div>
+                                    <div class="col-md-12">
+                                        <input class="form-control" type="text" placeholder="Address">
+                                    </div>
+                                    <div class="col-md-12">
+                                        <button class="btn">Update Account</button>
+                                        <br><br>
+                                    </div>
+                                </div>
+                                <h4>Password change</h4>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <input class="form-control" type="password" placeholder="Current Password">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input class="form-control" type="text" placeholder="New Password">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input class="form-control" type="text" placeholder="Confirm Password">
+                                    </div>
+                                    <div class="col-md-12">
+                                        <button class="btn">Save Changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- My Account End -->
+        <br><br><br>
+         <!-- Footer Start -->
+         <div class="footer">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-widget">
+                            <h2>Contactanos</h2>
+                            <div class="contact-info">
+                                <p><i class="fa fa-map-marker"></i>Plaza Innova, Piedras Negras, MX</p>
+                                <p><i class="fa fa-envelope"></i>GoalGear@gmail.com</p>
+                                <p><i class="fa fa-phone"></i>+52-878-137-0387</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-widget">
+                           <h2>Notificaciones</h2>
+                            <div class="contact-info">
+                                <div class="social">
+                                    <button id="notifications" type="hidden" class="btn">Habilitar Notificaciones</button> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-        <!-- Barra de navegación dinámica -->
-        <div id="nav-links"></div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-widget">
+                            <h2>Empresa</h2>
+                            <ul>
+                                <li><a href="#">Conocenos</a></li>
+                                <li><a href="#">Politica de privacidad</a></li>
+                                <li><a href="#">Terminos y Condiciones</a></li>
+                            </ul>
+                        </div>
+                    </div>
 
-        <script>
-        document.addEventListener("DOMContentLoaded", mostrarContenido);
-        </script>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-widget">
+                            <h2>Mas informacion</h2>
+                            <ul>
+                                <li><a href="#">Politicas de pagos</a></li>
+                                <li><a href="#">Politicas de compras</a></li>
+                                <li><a href="#">Politicas de devoluciones</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row payment align-items-center">
+                    <div class="col-md-6">
+                        <div class="payment-method">
+                            <h2>Aceptamos:</h2>
+                            <img src="img/payment-method.png" alt="Payment Method" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="payment-security">
+                            <h2>Protegido por:</h2>
+                            <img src="img/godaddy.svg" alt="Payment Security" />
+                            <img src="img/norton.svg" alt="Payment Security" />
+                            <img src="img/ssl.svg" alt="Payment Security" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer End -->
+        
+        <!-- Footer Bottom Start -->
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 copyright">
+                       
+                    </div>
+
+                    <div class="col-md-6 template-by">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer Bottom End -->       
+        
+        <!-- Back to Top -->
+        <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+        
+        <!-- JavaScript Libraries -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+        
+        <!-- Template Javascript -->
+       <script defer src="script.js"></script>
     </body>
 </html>
