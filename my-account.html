@@ -176,7 +176,50 @@ function configurarNavBar() {
 document.addEventListener("DOMContentLoaded", configurarNavBar);
       </script>
         <!-- Nav Bar End -->    
+         <script>
+function configurarNavBar() {
+    const usuario = obtenerUsuarioLogueado(); // Obtener usuario de localStorage
+    const navLinks = document.getElementById("nav-links");
+    const userSection = document.getElementById("user-section");
+
+    if (!navLinks || !userSection) {
+        console.error("No se encontraron los elementos 'nav-links' o 'user-section'.");
+        return;
+    }
+
+    // Limpia el contenido existente
+    navLinks.innerHTML = `
+        <a href="index.html" class="nav-item nav-link active">Inicio</a>
+        <a href="my-account.html" class="nav-item nav-link">Conócenos</a>
+    `;
+
+    if (usuario) {
+        // Agregar links adicionales si el usuario está logueado
+        if (usuario.privilegio === "Usuario" || usuario.privilegio === "Admin") {
+            navLinks.innerHTML += `<a href="contact.php" class="nav-item nav-link">Contáctanos</a>`;
+        }
+
+        // Mostrar información del usuario
+        userSection.innerHTML = `
+            <div class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">${usuario.nombre}</a>
+                <div class="dropdown-menu">
+                    <a href="porfile.php" class="dropdown-item">Perfil</a>
+                    ${usuario.privilegio === "Admin" ? '<a href="brands.php" class="dropdown-item">Admin</a>' : ""}
+                    <a href="#" class="dropdown-item" onclick="cerrarSesion()">Cerrar sesión</a>
+                </div>
+            </div>
+        `;
+    } else {
+        // Mostrar links para usuarios no autenticados
+        userSection.innerHTML = `<a href="login.html" class="nav-item nav-link" style="padding-right:80px;">Iniciar sesión</a>`;
         
+    }
+}
+
+// Configurar la barra de navegación al cargar la página
+document.addEventListener("DOMContentLoaded", configurarNavBar);
+        </script>
         <!-- Bottom Bar Start -->
         <div class="bottom-bar">
             <div class="container-fluid">
