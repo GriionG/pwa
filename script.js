@@ -29,7 +29,7 @@ function randomNotification(){
         });
     }
 
-   setTimeout(randomNotification, 3600000); // 1 hora en milisegundos  
+   setTimeout(randomNotification, 36000); // 1 hora en milisegundos  
 }
 
 // Registrar el Service Worker
