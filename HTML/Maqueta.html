@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Solicitudes de activos (Maqueta)</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+     <!-- Agregar Google Fonts (Ejemplo con "Roboto" y "Poppins") -->
+     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Style CSS -->
+    <link rel='stylesheet' type='text/css' media='screen' href='css/style.css'>
+    <!-- Incluye Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- Incluye Bootstrap 5 (CDN) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Incluye fontawesome -->
+    <script src="https://kit.fontawesome.com/f7f523ca7f.js" crossorigin="anonymous"></script>
+    <script src='main.js'></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header d-flex justify-content-between align-items-center">
+        <a href="#" class="icon-header icon-bars" id="menu-toggle">
+            <i class="fa-solid fa-bars"></i>
+        </a>
+        <img src="img/CBI_Logo-removebg-preview.png" alt="Logo de la empresa" class="logo">
+        <div class="icon-container d-flex">
+            <a href="#" class="icon-header" onclick="logout()">
+                <i class="fa-solid fa-right-from-bracket"></i> <!-- Ícono de salida -->
+            </a>
+            <a href="#" class="icon-header"><i class="fa-solid fa-circle-user"></i></a>
+        </div>
+    </header>
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <a href="#" class="sidebar-item active" onclick="closeSidebar()">Inicio</a> 
+        <a href="#" class="sidebar-item" onclick="closeSidebar()">Registro</a>
+        <a href="maqueta2.html" class="sidebar-item" onclick="closeSidebar()">Inicio de Sesión</a>
+        <a href="#" class="sidebar-item" onclick="closeSidebar()">Configuraciones</a>
+        <a href="#" class="sidebar-item" onclick="closeSidebar()">Cerrar Sesión</a>
+    </div>
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+    <!-- Banner -->
+    <section class="banner text-center py-5">
+        <h1 class="title-banner">¡Bienvenido a la Plataforma para Solicitudes de Baja de Activos!</h1>
+        <p class="description-banner">
+            Este sitio está diseñado para ayudarte a hacer las solicitudes para baja de activos de manera rápida y eficiente.
+            Puedes realizar búsquedas por número de serie para verificar los activos y procesar las bajas.
+        </p>
+        <a href="#" class="btn-banner" onclick="mostrarGuia()">Presiona aquí para más información <i class="fa-solid fa-circle-info"></i></a>
+    
+        <!-- Guía -->
+        <!-- Sección oculta por defecto -->
+        <div id="guia" style="display: none; margin-top: 20px;">
+            <h2>Guía para solicitud de bajas</h2>
+            <p>1. Inicia sesión si no tienes cuenta creala.</p>
+            <p>2. Dirígete a la sección de "Busqueda de Activos".</p>
+            <p>3. Realiza búsquedas por número de serie o categoría.</p>
+            <p>4. Procesa las bajas siguiendo los pasos indicados.</p>
+        </div>
+       <!-- <div class="divider"></div> --> 
+    </section>
+    
+<!-- Sección de Búsqueda de Activos -->
+<section class="articule py-5">
+    <h3 class="title-articule text-center">Búsqueda de Activos</h3>
+    <p class="text-center mb-3">Introduce el número de serie del activo en este campo.</p>
+    <div class="search-bar">
+        <!-- Campo de Entrada para la Búsqueda -->
+        <label class="label-custom input-label">N. de Serie:</label>
+        <input type="number" id="searchInput" class="input" placeholder="N. Serie de Activo">
+        <button class="search-btn" onclick="searchAsset()">
+            Buscar <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+    </div>
+
+    <div id="results" class="container mt-4" style="display: none;">
+        <!-- Mensaje de Verificación -->
+        <p id="verify-message" class="text-center fw-bold mb-3">
+            Verifique que todos los datos sean correctos.
+        </p>
+        <!-- Tabla con Resultados -->
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead class="table-primary">
+                    <tr>
+                        <th scope="col">Número de Serie</th>
+                        <th scope="col">Descripción</th>
+                        <th scope="col">Ubicación</th>
+                        <th scope="col">Responsable</th>
+                        <th scope="col">Datos correctos?</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td id="serie-number">123456</td>
+                        <td id="description">Computadora Portátil</td>
+                        <td id="location">Oficina Central</td>
+                        <td id="responsible">Juan Pérez</td>
+                        <td>
+                            <button class="btn btn-success btn-sm me-2" onclick="confirmAsset()">Confirmar</button>
+                            <button class="btn btn-danger btn-sm" onclick="rejectAsset()">Rechazar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p id="verify-message" class="text-center  mb-3">
+            Deslice la tabla y verifique que todos los datos estan coinciden con el activo que desea dar de baja.
+        </p>
+        <!-- Mensaje de Instrucciones -->
+        <p id="instructions" class="mt-3 text-center" style="display: none;"></p>
+    </div>
+</section>
+
+<!-- Modal para Confirmar Activo -->
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmModalLabel">Detalles de Solicitud</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Número de Serie:</strong> <span id="modal-serie"></span></p>
+                <p><strong>Descripción:</strong> <span id="modal-description"></span></p>
+                <p><strong>Ubicación:</strong> <span id="modal-location"></span></p>
+                <p><strong>Responsable:</strong> <span id="modal-responsible"></span></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary">Enviar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <nav class="nav">
+        <p class="barnav" hidden>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente aliquam ut, asperiores inventore doloremque neque numquam perferendis molestiae eos repellendus! Nam voluptatem recusandae vel, provident quaerat ducimus deserunt eos doloribus. </p>
+    </nav>
+    <!-- Footer -->
+    <footer class="footer text-center py-3">
+        <p class="text-footer">&copy; 2025. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        //barra lateral de opciones 
+        const sidebar = document.getElementById("sidebar");
+        const overlay = document.getElementById("overlay");
+        const menuToggle = document.getElementById("menu-toggle");
+
+        menuToggle.addEventListener("click", function () {
+            sidebar.style.left = "0px"; 
+            overlay.style.display = "block"; 
+        });
+
+        function closeSidebar() {
+            sidebar.style.left = "-250px"; 
+            overlay.style.display = "none"; 
+        }
+
+        // opcion de guia 
+        overlay.addEventListener("click", closeSidebar);
+
+        function mostrarGuia() {
+        const guia = document.getElementById("guia");
+        if (guia.style.display === "none") {
+            guia.style.display = "block"; // Muestra la guía
+        } else {
+            guia.style.display = "none"; // Oculta la guía
+        }
+        }
+        
+    // Función para Buscar Activos
+    function searchAsset() {
+    // Verifica el estado de autenticación desde localStorage
+    const isAuthenticated = localStorage.getItem("isAuthenticated") === "true";
+
+    if (!isAuthenticated) {
+        const userAction = confirm("Por favor, inicie sesión para continuar. ¿Desea iniciar sesión ahora?");
+        if (userAction) {
+            // Redirige a Maqueta2.html
+            window.location.href = "Maqueta2.html";
+        } else {
+            alert("Continúa en la página actual.");
+        }
+    } else {
+        const input = document.getElementById('searchInput').value;
+
+        if (input) {
+            // Mostrar resultados (Simulación)
+            document.getElementById('results').style.display = 'block';
+            document.getElementById('serie-number').textContent = input; // Simula el número de serie buscado
+            document.getElementById('instructions').style.display = 'none';
+        } else {
+            alert('Por favor, introduce un número de serie.');
+        }
+    }
+}
+
+    
+
+
+   function confirmAsset() {
+    // Obtener datos del activo
+    const serie = document.getElementById('serie-number').textContent;
+    const description = document.getElementById('description').textContent;
+    const location = document.getElementById('location').textContent;
+    const responsible = document.getElementById('responsible').textContent;
+
+    // Obtener datos del usuario desde localStorage
+    const userData = JSON.parse(localStorage.getItem("userData"));
+
+    // Pasar datos al modal
+    document.getElementById('modal-serie').textContent = serie;
+    document.getElementById('modal-description').textContent = description;
+    document.getElementById('modal-location').textContent = location;
+    document.getElementById('modal-responsible').textContent = responsible;
+
+    // Mostrar datos del usuario en el modal
+    const modalBody = document.querySelector('.modal-body');
+    const userDetails = `
+        <hr>
+        <h5>Información del Usuario</h5>
+        <p><strong>Nombre:</strong> ${userData.name}</p>
+        <p><strong>Puesto:</strong> ${userData.position}</p>
+        <p><strong>Área Asignada:</strong> ${userData.area}</p>
+        <p><strong>Teléfono:</strong> ${userData.phone}</p>
+    `;
+    modalBody.insertAdjacentHTML('beforeend', userDetails);
+
+    // Mostrar modal utilizando Bootstrap
+    const confirmModal = new bootstrap.Modal(document.getElementById('confirmModal'));
+        instructions.style.display = 'block';
+        instructions.textContent = 'Los datos correctos, pasando a la siguiente proceso.';
+        instructions.style.color = 'green';
+        setTimeout(() => {
+            confirmModal.show();
+                }, 500);
+        
+    }
+
+    // Función para Rechazar Activo
+    function rejectAsset() {
+        const instructions = document.getElementById('instructions');
+        instructions.style.display = 'block';
+        instructions.textContent = 'Los datos son incorrectos. Revisa el número de serie o vuelve a intentarlo.';
+        instructions.style.color = 'red';
+    }
+
+    function logout() {
+    // Reiniciar el estado de autenticación
+    localStorage.setItem("isAuthenticated", "false");
+    
+    // Mensaje opcional
+    alert("Has cerrado sesión. Redirigiendo al inicio de sesión...");
+    
+    // Redirigir a la página de inicio de sesión
+    window.location.href = "Maqueta.html";
+}
+</script>
+</body>
+
+</html>
