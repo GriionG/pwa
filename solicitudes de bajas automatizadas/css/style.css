@@ -320,7 +320,7 @@ label {
 }
 
 .banner-background-profile {
-    background-image: url('../img/AgendaIVC2020-14.jpg');
+    background-image: url('./img/AgendaIVC2020-14.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat; /* Evita que la imagen se repita */
