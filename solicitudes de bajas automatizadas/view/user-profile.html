@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Perfil de usuario</title>
+    <!-- Favicon en formato PNG -->
+    <link rel="icon" href="../img/CBI_Logo-removebg-preview.png" type="image/png">
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+     <!-- Agregar Google Fonts (Ejemplo con "Roboto" y "Poppins") -->
+     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Style CSS -->
+    <link rel='stylesheet' type='text/css' media='screen' href='../css/style.css'>
+    <!-- Incluye Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- Incluye Bootstrap 5 (CDN) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Incluye fontawesome -->
+    <script src="https://kit.fontawesome.com/f7f523ca7f.js" crossorigin="anonymous"></script>
+    <script src='main.js'></script>
+
+    <script>
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const passwordIcon = document.getElementById('passwordIcon');
+        
+             if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                passwordIcon.classList.remove('fa-eye');
+                passwordIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                passwordIcon.classList.remove('fa-eye-slash');
+                passwordIcon.classList.add('fa-eye');
+            }
+        }
+        
+    const passwordInput = document.getElementById('password');
+    const saveButton = document.getElementById('saveButton');
+
+    saveButton.addEventListener('click', () => {
+        if (passwordInput.value !== '') {
+            const confirmChange = confirm(
+                '¿Estás seguro de que deseas cambiar la contraseña?'
+            );
+            if (confirmChange) {
+                alert('Contraseña actualizada correctamente.');
+            } else {
+                passwordInput.value = ''; // Limpia el campo si cancela
+            }
+        } else {
+            alert('Los cambios han sido guardados.');
+        }
+    });
+</script>
+</head>
+<body style="background-color: #F9F9F9;">
+<!-- Header -->
+<header class="header d-flex justify-content-between align-items-center">
+    <div class="logo-container">
+        <a href="home.html">
+            <img src="../img/CBI_Logo-removebg-preview.png" alt="Logo de la empresa" class="logo">
+        </a>
+    </div>
+    <div class="icon-container d-flex">
+        <a href="#" class="icon-header icon-bars" id="menu-toggle">
+            <i class="fa-solid fa-bars"></i>
+            <span class="icon-text">Menú</span>
+        </a>
+        <a href="#" class="icon-header" id="adminLink">
+            <i class="fa-solid fa-gear"></i>
+            <span class="icon-text" id="adminText">Admin</span>
+        </a>
+    </div>
+    <div class="icon-container-right d-flex">
+        <a href="#" class="icon-header" onclick="logout()">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <span class="icon-text">Cerrar sesion</span>
+        </a>
+        <a href="#" class="icon-header">
+            <i class="fa-solid fa-circle-user"></i>
+            <span class="icon-text" id="roleText">Perfil</span>
+        </a>
+    </div>
+</header>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <a href="home.html" class="sidebar-item" onclick="closeSidebar()">Inicio</a> 
+        <a href="login.html" class="sidebar-item" onclick="closeSidebar()">Inicio de Sesión</a>
+        <a href="user-register.html" class="sidebar-item" onclick="closeSidebar()">Registro de Usuario</a>
+        <a href="asset-state.html" class="sidebar-item" onclick="closeSidebar()">Estado de Solicitudes</a>
+        <a href="#" class="sidebar-item" onclick="logout()">Cerrar Sesión</a>
+    </div>
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+    <!-- Banner -->
+    <div class="banner-profile py-8 bg-light banner-background-profile">
+        <div class="profile-container">
+            <img src="../img/user.png" alt="Foto de perfil" class="profile-picture">
+        </div>
+    </div>
+
+    <div class="register-section container-fluid">
+        <div class="row min-vh-100 d-flex justify-content-center align-items-center">
+            <div class="col-md-8 col-10 d-flex flex-column align-items-center">
+                <div class="row w-100 justify-content-around flex-wrap-reverse">
+                    <div class="col-md-6 d-flex justify-content-end">
+                        <div class="card shadow w-100">
+                            <div class="card-body">
+                                <h3 class="text-center mb-4">Información Personal</h3>
+                                <form id="registerForm">
+                                    <div class="mb-3">
+                                        <label for="name" class="form-label">Nombre</label>
+                                        <input type="text" id="name" class="form-control" placeholder="Introduce tu nombre completo" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="area" class="form-label">Departamento</label>
+                                        <input type="text" id="area" class="form-control" placeholder="Introduce tu área" required readonly>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="puesto" class="form-label">Puesto</label>
+                                        <input type="text" id="puesto" class="form-control" placeholder="Introduce tu puesto" required readonly>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="celular" class="form-label">Num. Celular</label>
+                                        <input type="tel" id="celular" class="form-control" placeholder="Introduce tu número de celular" required>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-5 d-flex justify-content-start">
+                        <div class="card shadow w-75 position-relative">
+                            <div class="card-body">
+                                <h3 class="text-center mb-4">Información de Usuario</h3>
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Correo</label>
+                                    <input type="email" id="email" class="form-control" placeholder="Introduce tu correo" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">Contraseña</label>     
+                                    <div class="password-container d-flex">
+                                        <input type="password" id="password" class="form-control" placeholder="Introduce tu contraseña" required>
+                                        <button type="button" class="btn-show-password" onclick="togglePassword()">
+                                            <i class="fa-solid fa-eye" id="passwordIcon"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    
+                                    <label for="profile-pic" class="form-label">Foto de Perfil</label>
+                                    <input type="file" id="profile-pic" class="form-control" accept="image/*">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-4 mb-5">
+                    <button type="submit" class="btn-adaptable">Guardar Cambios</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container text-center">
+            <p class="m-0 text-white">&copy; 2025. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        //barra lateral de opciones 
+        const sidebar = document.getElementById("sidebar");
+        const overlay = document.getElementById("overlay");
+        const menuToggle = document.getElementById("menu-toggle");
+
+        menuToggle.addEventListener("click", function () {
+            sidebar.style.left = "0px"; 
+            overlay.style.display = "block"; 
+        });
+
+        function closeSidebar() {
+            sidebar.style.left = "-250px"; 
+            overlay.style.display = "none"; 
+        }
+
+        // opcion de guia 
+        overlay.addEventListener("click", closeSidebar);
+
+        
+       document.addEventListener("DOMContentLoaded", function() {
+    const userData = JSON.parse(localStorage.getItem("userData"));
+    if (userData) {
+        document.getElementById("name").value = userData.name || "";
+        document.getElementById("area").value = userData.area || "";
+        document.getElementById("puesto").value = userData.position || "";
+        document.getElementById("celular").value = userData.phone || "";
+        document.getElementById("email").value = userData.username || "";
+        document.getElementById("password").value = userData.password || ""; // Agrega la contraseña al campo
+    }
+});
+    
+// Función para cargar el rol del usuario desde localStorage
+function loadUserRole() {
+        const userData = JSON.parse(localStorage.getItem('userData'));
+        if (userData) {
+            const role = userData.role;  // Obtener el rol del usuario
+            const adminText = document.getElementById('adminText');
+            const roleText = document.getElementById('roleText');
+            
+            // Cambiar el texto y los íconos según el rol
+            if (role === 'admin') {
+                adminText.textContent = 'Administrar';
+                roleText.textContent = 'Perfil';
+            } else if (role === 'moderador') {
+                adminText.textContent = 'Moderación';
+                roleText.textContent = 'Perfil';
+            } else if (role === 'usuario') {
+                adminText.textContent = 'Acciones';
+                roleText.textContent = 'Perfil';
+            }
+        }
+    }
+
+    // Llamar a la función para cargar el rol cuando la página cargue
+    window.onload = loadUserRole;
+
+    // Función de logout
+    function logout() {
+        localStorage.removeItem('isAuthenticated');
+        localStorage.removeItem('userData');
+        window.location.href = 'login.html';  // Redirigir al login después del logout
+    }
+
+    // Función para cargar el rol del usuario desde localStorage
+    function loadUserRole() {
+        const userData = JSON.parse(localStorage.getItem('userData'));
+        if (userData) {
+            const role = userData.role;  // Obtener el rol del usuario
+            const adminText = document.getElementById('adminText');
+            const roleText = document.getElementById('roleText');
+            const adminLink = document.getElementById('adminLink');
+
+            // Cambiar el texto y los íconos según el rol
+            if (role === 'admin') {
+                adminText.textContent = 'Administrar';
+                roleText.textContent = 'Perfil';
+            } else if (role === 'moderador') {
+                adminText.textContent = 'Moderación';
+                roleText.textContent = 'Perfil';
+            } else if (role === 'usuario') {
+                adminText.textContent = 'Acciones';
+                roleText.textContent = 'Perfil';
+
+                // Ocultar el link de administración si es usuario
+                adminLink.style.display = 'none';
+            }
+        }
+    }
+
+    // Llamar a la función para cargar el rol cuando la página cargue
+    window.onload = loadUserRole;
+
+    // Función de logout con confirm
+    function logout() {
+        const confirmLogout = confirm("¿Estás seguro que deseas cerrar sesión?");
+        if (confirmLogout) {
+            // Reiniciar el estado de autenticación
+            localStorage.setItem("isAuthenticated", "false");
+            localStorage.removeItem('userData');
+            
+            // Mensaje de despedida
+            alert("Hasta la próxima. Has cerrado sesión.");
+            
+            // Redirigir a la página de inicio de sesión
+            window.location.href = "login.html";
+        }
+    }
+    
+
+</script>
+</body>
+
+</html>

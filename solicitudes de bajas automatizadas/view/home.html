@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Inicio</title>
+    <!-- Favicon en formato PNG -->
+    <link rel="icon" href="../img/CBI_Logo-removebg-preview.png" type="image/png">
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+     <!-- Agregar Google Fonts (Ejemplo con "Roboto" y "Poppins") -->
+     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Style CSS -->
+    <link rel='stylesheet' type='text/css' media='screen' href='../css/style.css'>
+    <!-- Incluye Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- Incluye Bootstrap 5 (CDN) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Incluye fontawesome -->
+    <script src="https://kit.fontawesome.com/f7f523ca7f.js" crossorigin="anonymous"></script>
+    <script src='main.js'></script>
+    <script>
+        function validateInput(input) {
+            input.value = input.value.replace(/[^A-Za-z0-9]/g, ""); // Elimina caracteres no permitidos
+        }
+
+        function toggleOtherProcess() {
+        let select = document.getElementById("modal-process");
+        let otherInput = document.getElementById("other-process");
+
+        if (select.value === "other") {
+        otherInput.style.display = "block";
+        otherInput.focus(); // Pone el cursor en el campo automáticamente
+        } else {
+        otherInput.style.display = "none";
+        otherInput.value = ""; // Limpia el campo si no está seleccionado "Otro"
+        }
+        }
+
+        function toggleOther() {
+        let select = document.getElementById("modal-process-r");
+        let otherInput = document.getElementById("other-process-r");
+
+        if (select.value === "other") {
+        otherInput.style.display = "block";
+        otherInput.focus(); // Pone el cursor en el campo automáticamente
+        } else {
+        otherInput.style.display = "none";
+        otherInput.value = ""; // Limpia el campo si no está seleccionado "Otro"
+        }
+        }
+    </script>   
+</head>
+<body>
+<!-- Header -->
+<header class="header d-flex justify-content-between align-items-center">
+    <div class="logo-container">
+        <a href="home.html">
+            <img src="../img/CBI_Logo-removebg-preview.png" alt="Logo de la empresa" class="logo">
+        </a>
+    </div>
+    <div class="icon-container d-flex">
+        <a href="#" class="icon-header icon-bars" id="menu-toggle">
+            <i class="fa-solid fa-bars"></i>
+            <span class="icon-text">Menú</span>
+        </a>
+        <a href="#" class="icon-header" id="adminLink">
+            <i class="fa-solid fa-gear"></i>
+            <span class="icon-text" id="adminText">Admin</span>
+        </a>
+    </div>
+    <div class="icon-container-right d-flex">
+        <a href="#" class="icon-header" onclick="logout()">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <span class="icon-text">Cerrar sesion</span>
+        </a>
+        <a href="user-profile.html" class="icon-header">
+            <i class="fa-solid fa-circle-user"></i>
+            <span class="icon-text" id="roleText">Perfil</span>
+        </a>
+    </div>
+</header>
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <a href="#" class="sidebar-item active" onclick="closeSidebar()">Inicio</a> 
+        <a href="login.html" class="sidebar-item" onclick="closeSidebar()">Inicio de Sesión</a>
+        <a href="user-register.html" class="sidebar-item" onclick="closeSidebar()">Registro de Usuario</a>
+        <a href="asset-state.html" class="sidebar-item" onclick="closeSidebar()">Estado de Solicitudes</a>
+        <a href="#" class="sidebar-item" onclick="logout()">Cerrar Sesión</a>
+    </div>
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+<!-- Banner -->
+<div class="banner text-center py-8 bg-light banner-background">
+    <div class="container">
+        <!-- Título -->
+        <div class="row">
+            <div class="col-12">
+                <h1 class="title-banner mb-4">
+                    ¡Bienvenido a la Plataforma para Solicitudes de Baja de Activos!
+                </h1>
+            </div>
+        </div>
+
+        <!-- Descripción -->
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <p class="description-banner lead">
+                    Este sitio está diseñado para ayudarte a hacer las solicitudes para baja de activos de manera rápida y eficiente.
+                    Puedes realizar búsquedas por número de serie para verificar los activos y procesar las bajas.
+                </p>
+            </div>
+        </div>
+
+        <!-- Botón -->
+        <div class="row justify-content-center">
+            <div class="col-auto">
+                <a href="#" class="btn-banner mt-3" onclick="mostrarGuia()">
+                    Presiona aquí para más información <i class="fa-solid fa-circle-info"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Guía -->
+        <div class="row justify-content-center mt-5">
+            <div id="guia" class="col-auto text-center" style="display: none;">
+                <h2 class="h4">Guía para solicitud de bajas</h2>
+                <ul class="list-unstyled ms-3">
+                    <li class="mb-2">1. Inicia sesión si no tienes cuenta créala.</li>
+                    <li class="mb-2">2. Dirígete a la sección de "Búsqueda de Activos".</li>
+                    <li class="mb-2">3. Realiza búsquedas por número de serie o categoría.</li>
+                    <li class="mb-2">4. Procesa las bajas siguiendo los pasos indicados.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+    
+<!-- Sección de Búsqueda de Activos -->
+<section class="articule py-5">
+    <div class="container text-center">
+        <!-- Título -->
+        <div class="title-container">
+            <h3 class="title-articule">Búsqueda de Activos</h3>
+        </div>
+        
+        <!-- Descripción con Tooltip -->
+        <div class="description-container mt-3">
+            <p class="tooltip-container">
+                Introduce el número de serie del activo o el número de Tag en este campo.
+                <span class="tooltip-content">
+                    <img src="../img/n.serie.png" alt="Ejemplo de número de serie" class="tooltip-image">
+                    <img src="../img/tal.jpg" alt="Ejemplo de número de serie" class="tooltip-image">
+                </span>
+            </p>
+        </div>
+
+      <!-- Barra de Búsqueda -->
+<div class="search-bar mt-4">
+    <label class="label-custom input-label">N. de Serie / N. de Tag:</label>
+    <input type="text" id="searchInput" class="input" placeholder="N. Serie o N. Tag" 
+        pattern="[A-Za-z0-9]+" title="Solo se permiten números y letras" oninput="validateInput(this)">
+    <button class="search-btn" onclick="searchAsset()">
+        Buscar <i class="fa-solid fa-magnifying-glass"></i>
+    </button>
+</div>
+
+<!-- Resultados -->
+<div id="results" class="container mt-4" style="display: none;">
+    <!-- Mensaje de Verificación -->
+    <div class="verify-message-container mb-3">
+        <p id="verify-message" class="fw-bold">Verifique que todos los datos sean correctos.</p>
+    </div>
+
+    <!-- Tabla con Resultados -->
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead style="background-color: #16335C; color: rgb(255, 255, 255);">
+                <tr>
+                    <th scope="col">Número de Serie</th>
+                    <th scope="col">Número de Tag</th>
+                    <th scope="col">Nombre de Activo</th>
+                    <th scope="col">Marca</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Fabricante</th>
+                    <th scope="col">Descripción</th>
+                    <th scope="col">Complementación</th>
+                    <th scope="col">Imagen de Activo</th>
+                    <th scope="col">Area</th>
+                    <th scope="col">Responsable</th>
+                    <th scope="col">Coinciden los datos?</th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
+                <!-- Aquí se insertarán los resultados dinámicamente -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+            <p id="verify-message" class="mt-3">
+                Deslice la tabla y verifique que todos los datos coinciden con el activo que desea dar de baja.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Modal para De acuerdo Activo -->
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmModalLabel">Detalles de Solicitud</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <label for="modal-company" class="mt-3">Compañia:</label>
+                <input type="text" id="modal-company" value="INDUSTRIA VIDRIERA DE COAHUILA, S. DE R.L. DE C.V." class="form-control" readonly>    
+
+                <label for="modal-serie">Número de Serie:</label>
+                <input type="text" id="modal-serie" class="form-control" readonly>
+                
+                <label for="modal-tag" class="mt-3">Número de TAG:</label>
+                <input type="text" id="modal-tag" class="form-control" readonly>
+
+                <label for="modal-name" class="mt-3">Nombre de Activo:</label>
+                <input type="text" id="modal-name" class="form-control">
+
+                <label for="modal-brand" class="mt-3">Marca:</label>
+                <input type="text" id="modal-brand" class="form-control" readonly>
+
+                <label for="modal-quantity" class="mt-3">Cantidad:</label>
+                <input type="text" id="modal-quantity" class="form-control" readonly>
+
+                <label for="modal-manufacturer" class="mt-3">Fabricante:</label>
+                <input type="text" id="modal-manufacturer" class="form-control" >
+                
+                <label for="modal-description" class="mt-3">Razon de baja:</label>
+                <textarea type="text" id="modal-description" class="form-control">
+                </textarea>
+                
+                <label for="modal-img" class="mt-3">Imagen:</label>
+                <input type="file" id="modal-img" class="form-control" accept="image/*">
+                <!-- Vista previa de la imagen -->
+                <img id="modal-preview" src="" alt="Vista previa" class="img-fluid mt-2" style="max-width: 200px; display: none;">
+
+                <label for="modal-location" class="mt-3">Localizacion:</label>
+                <input type="text" id="modal-location" class="form-control" >
+                
+                <label for="modal-responsible" class="mt-3">Responsable:</label>
+                <input type="text" id="modal-responsible" class="form-control" readonly>
+
+                <label for="modal-date" class="mt-3">Fecha:</label>
+                <input type="text" id="modal-date" class="form-control" readonly>
+
+                <label for="modal-process" class="mt-3">Dispocision final:</label>
+                <select id="modal-process" class="form-control" onchange="toggleOtherProcess()">
+                    <option value="" selected disabled>Seleccione un proceso</option>
+                    <option value="Donation">Donación</option>
+                    <option value="Sale">Vender</option>
+                    <option value="Trade-in">Devolución</option>
+                    <option value="Scrap">Scrap</option>
+                    <option value="other">Otro</option>
+                </select>
+                
+                <!-- Campo de texto oculto para escribir otro Dispocision final -->
+                <input type="text" id="other-process" class="form-control mt-2" placeholder="Especifique otro proceso" style="display: none;">
+                
+                <!-- Información del Usuario en Inputs -->
+                <hr>
+                <h5>Información del Usuario</h5>
+                <label for="user-name">Nombre:</label>
+                <input type="text" id="user-name" class="form-control" readonly>
+                
+                <label for="user-position" class="mt-3">Puesto:</label>
+                <input type="text" id="user-position" class="form-control" readonly>
+                
+                <label for="user-area" class="mt-3">Área Asignada:</label>
+                <input type="text" id="user-area" class="form-control" readonly>
+                
+                <label for="user-phone" class="mt-3">Teléfono:</label>
+                <input type="tel" id="user-phone" class="form-control" >
+
+                <label for="user-manager" class="mt-3">Nombre de tu Gerente de area:</label>
+                <input type="text" id="user-manager" class="form-control">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="sendData()">Enviar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para Desacuerdo Activo -->
+<div class="modal fade" id="rejectModal" tabindex="-1" aria-labelledby="rejectModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="rejectModalLabel">Registro de Solicitudes</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h5>Detalles del Activo</h5>
+                <label for="reject-serie" class="mt-3">Número de Serie:</label>
+                <input type="text" id="reject-serie-r" class="form-control" >
+
+                <label for="reject-tag" class="mt-3">Número de TAG:</label>
+                <input type="text" id="reject-tag-r" class="form-control" >
+
+                <label for="modal-name" class="mt-3">Nombre de Activo:</label>
+                <input type="text" id="modal-name-r" class="form-control">
+
+                <label for="modal-brand" class="mt-3">Marca:</label>
+                <input type="text" id="modal-brand-r" class="form-control" >
+
+                <label for="modal-quantity" class="mt-3">Cantidad:</label>
+                <input type="text" id="modal-quantity-r" class="form-control">
+
+                <label for="modal-manufacturer" class="mt-3">Fabricante:</label>
+                <input type="text" id="modal-manufacturer-r" class="form-control" >
+                
+                <label for="modal-description" class="mt-3">Razon de baja:</label>
+                <textarea type="text" id="modal-description-r" class="form-control">
+                </textarea>
+                
+                <label for="modal-img" class="mt-3">Imagen:</label>
+                <input type="file" id="modal-img-r" class="form-control" accept="image/*">
+                <!-- Vista previa de la imagen -->
+                <img id="modal-preview" src="" alt="Vista previa" class="img-fluid mt-2" style="max-width: 200px; display: none;">
+
+                <label for="modal-location" class="mt-3">Localizacion:</label>
+                <input type="text" id="modal-location-r" class="form-control" >
+                
+                <label for="modal-responsible" class="mt-3">Responsable:</label>
+                <input type="text" id="modal-responsible-r" class="form-control" >
+
+                <label for="modal-date" class="mt-3">Fecha:</label>
+                <input type="text" id="modal-date-r" class="form-control" readonly>
+
+                <label for="modal-process-r" class="mt-3">Disposición final:</label>
+                <select id="modal-process-r" class="form-control" onchange="toggleOther()">
+                    <option value="" selected disabled>Seleccione un proceso</option>
+                    <option value="Donation">Donación</option>
+                    <option value="Sale">Vender</option>
+                    <option value="Trade-in">Devolución</option>
+                    <option value="Scrap">Scrap</option>
+                    <option value="other">Otro</option>
+                </select>
+
+                 <!-- Campo de texto oculto para escribir otro Dispocision final -->
+                 <input type="text" id="other-process-r" class="form-control mt-2" placeholder="Especifique otro proceso" style="display: none;">
+
+                <hr>
+                <h5>Información del Usuario</h5>
+                <label for="reject-user-name">Nombre:</label>
+                <input type="text" id="reject-user-name" class="form-control" readonly>
+
+                <label for="reject-user-position" class="mt-3">Puesto:</label>
+                <input type="text" id="reject-user-position" class="form-control" readonly>
+
+                <label for="reject-user-area" class="mt-3">Área Asignada:</label>
+                <input type="text" id="reject-user-area" class="form-control" readonly>
+
+                <label for="reject-user-phone" class="mt-3">Numero de Celular:</label>
+                <input type="tel" id="reject-user-phone" class="form-control" >
+
+                <label for="user-manager" class="mt-3">Nombre de tu Gerente de area:</label>
+                <input type="text" id="user-manager" class="form-control">
+                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="confirmRejection()">Enviar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <!-- Texto con ícono de ayuda -->
+        <div class="d-flex align-items-center">
+            <i class="fa-solid fa-file-export me-2"></i>
+            <span>¿Necesitas ayuda?, descarga la guía de uso de la plataforma</span>
+        </div>
+
+        <!-- Botón de descarga con ícono de flecha hacia abajo -->
+        <div class="ms-3">
+            <a href="#" download="#" class="btn btn-outline-primary d-flex align-items-center">
+                <i class="fa-solid fa-arrow-down me-2"></i>
+                Descargar Guía
+            </a>
+        </div>
+    </div>
+</nav>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container text-center">
+            <p class="m-0 text-white">&copy; 2025. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        //barra lateral de opciones 
+        const sidebar = document.getElementById("sidebar");
+        const overlay = document.getElementById("overlay");
+        const menuToggle = document.getElementById("menu-toggle");
+
+        menuToggle.addEventListener("click", function () {
+            sidebar.style.left = "0px"; 
+            overlay.style.display = "block"; 
+        });
+
+        function closeSidebar() {
+            sidebar.style.left = "-250px"; 
+            overlay.style.display = "none"; 
+        }
+
+        // opcion de guia 
+        overlay.addEventListener("click", closeSidebar);
+
+        function mostrarGuia() {
+        const guia = document.getElementById("guia");
+        if (guia.style.display === "none") {
+            guia.style.display = "block"; // Muestra la guía
+        } else {
+            guia.style.display = "none"; // Oculta la guía
+        }
+    }
+        
+    const assets = [
+    {
+        serieNumber: "1974665761",
+        tagNumber: "A2B200000000000000060071",
+        assetName: "",
+        brand: "TWIN CITY FAN & BLOWER",
+        quantity: "1",
+        manufacturer: "No asignado",
+        description: "Ventilador",
+        complementation: "PARA ENFRIAMIENTO DE MOLDE MAQ 51",
+        assetImg: "../img/CBI_Logo-removebg-preview.png",
+        area: "CUARTO DE VENTILADORES",
+        responsible: "No asignado",
+    },
+    {
+        serieNumber: "",
+        tagNumber: "A6B600000000000000017136",
+        assetName: "",
+        brand: "",
+        quantity: "1",
+        manufacturer: "",
+        description: "Mesa",
+        complementation: "",
+        assetImg: "../img/CBI_Logo-removebg-preview.png",
+        area: "COMEDOR DE EMPLEADOS",
+        responsible: "No asignado",
+    },
+    {
+        serieNumber: "",
+        tagNumber: "A2B200000000000000060625",
+        assetName: "",
+        brand: "MARATHON ELECTRIC",
+        quantity: "1",
+        manufacturer: "No asignado",
+        description: "Motor Electrico",
+        complementation: "PARA BOMBA VS INCENDIO",
+        assetImg: "",
+        area: "CASETA BOMBAS VS INCENDIO",
+        responsible: "No asignado",
+    },
+    {
+        serieNumber: "",
+        tagNumber: "A2B200000000000000060257",
+        assetName: "",
+        brand: "VIDEOJET",
+        quantity: "1",
+        manufacturer: "No asignado",
+        description: "Ventilador",
+        complementation: "PARA MARCADO DE CAJA",
+        assetImg: "../img/CBI_Logo-removebg-preview.png",
+        area: "LINEA #2",
+        responsible: "No asignado",
+    }
+];
+
+function searchAsset() {
+    let searchInput = document.getElementById("searchInput").value.trim();
+    let resultsContainer = document.getElementById("results");
+    let tableBody = document.getElementById("table-body"); // ID corregido
+
+    tableBody.innerHTML = ""; // Limpia resultados anteriores
+
+    if (searchInput === "") {
+        resultsContainer.style.display = "none";
+        return;
+    }
+
+    let filteredAssets = assets.filter(asset => 
+        (asset.serieNumber || "").includes(searchInput) || (asset.tagNumber || "").includes(searchInput)
+    );
+
+    if (filteredAssets.length > 0) {
+        filteredAssets.forEach(asset => {
+            let row = `
+                <tr 
+                    data-serie="${asset.serieNumber || ''}" 
+                    data-tag="${asset.tagNumber || ''}"
+                    data-nombre="${asset.assetName || ''}"
+                    data-marca="${asset.brand || ''}"
+                    data-cantidad="${asset.quantity || '0'}"
+                    data-fabricante="${asset.manufacturer || ''}"
+                    data-descripcion="${asset.description || ''}"
+                    data-img="${asset.assetImg || 'placeholder.jpg'}"
+                    data-responsible="${asset.responsible || ''}"
+                >
+                    <td>${asset.serieNumber || "No asignado"}</td>
+                    <td>${asset.tagNumber || "No asignado"}</td>
+                    <td>${asset.assetName || "No asignado"}</td>
+                    <td>${asset.brand || "No asignado"}</td>
+                    <td>${asset.quantity || "0"}</td>
+                    <td>${asset.manufacturer || "No asignado"}</td>
+                    <td>${asset.description || "No disponible"}</td>
+                    <td>${asset.complementation || "N/A"}</td>
+                    <td><img src="${asset.assetImg || 'placeholder.jpg'}" alt="Imagen del activo" width="50"></td>
+                    <td>${asset.area || "No asignado"}</td>
+                    <td>${asset.responsible || "No asignado"}</td>
+                    <td>
+                        <button class="btn btn-success btn-sm me-2" onclick="confirmAsset(this)">
+                            <i class="fa-solid fa-check"></i>
+                        </button>
+                        <button class="btn btn-danger btn-sm" onclick="rejectAsset('${asset.serieNumber}', '${asset.tagNumber}')">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </td>
+                </tr>
+            `;
+            tableBody.innerHTML += row;
+        });
+
+        resultsContainer.style.display = "block";
+    } else {
+        resultsContainer.style.display = "none";
+    }
+}
+
+function confirmAsset(button) {
+    const row = button.closest("tr");
+
+    const userData = JSON.parse(localStorage.getItem("userData")) || {};
+
+    // Extraer datos de la fila
+    const serie = row.dataset.serie;
+    const tag = row.dataset.tag;
+    const nombreActivo = row.dataset.nombre;
+    const marca = row.dataset.marca;
+    const cantidad = row.dataset.cantidad;
+    const fabricante = row.dataset.fabricante;
+    const responsible = row.dataset.responsible;
+
+
+
+    // Asignar datos al modal
+    document.getElementById("modal-company").value = "INDUSTRIA VIDRIERA DE COAHUILA, S. DE R.L. DE C.V.";  
+    document.getElementById("modal-serie").value = serie;
+    document.getElementById("modal-tag").value = tag;
+    document.getElementById("modal-name").value = nombreActivo;
+    document.getElementById("modal-brand").value = marca;
+    document.getElementById("modal-quantity").value = cantidad;
+    document.getElementById("modal-manufacturer").value = fabricante;
+    document.getElementById("modal-responsible").value = responsible;
+
+    // Seleccionar el elemento de la vista previa de la imagen
+    const previewImg = document.getElementById("modal-preview");
+
+    // Datos del usuario
+    document.getElementById("user-name").value = userData.name || "Usuario Desconocido";
+    document.getElementById("user-position").value = userData.position || "Sin puesto";
+    document.getElementById("user-area").value = userData.area || "Sin área";
+    document.getElementById("user-phone").value = userData.phone || "Sin teléfono";
+
+    // Fecha actual
+    document.getElementById("modal-date").value = new Date().toISOString().split("T")[0];
+
+    // Asegúrate de que el modal esté cargado correctamente
+    const confirmModal = new bootstrap.Modal(document.getElementById("confirmModal"));
+    confirmModal.show(); // Mostrar el modal
+}
+
+
+
+function rejectAsset(serie, tag, description, location, responsible) {
+    const userData = JSON.parse(localStorage.getItem("userData")) || {};
+
+    document.getElementById('reject-user-name').value = userData.name || "Usuario Desconocido";
+    document.getElementById('reject-user-position').value = userData.position || "Sin puesto";
+    document.getElementById('reject-user-area').value = userData.area || "Sin área";
+    document.getElementById('reject-user-phone').value = userData.phone || "Sin teléfono";
+
+    // Fecha actual
+    document.getElementById("modal-date-r").value = new Date().toISOString().split("T")[0];
+
+    const rejectModal = new bootstrap.Modal(document.getElementById('rejectModal'));
+    rejectModal.show();
+}
+
+function submitRejectionRequest() {
+    // Obtener los datos ingresados por el usuario en el modal de rechazo
+    const serie = document.getElementById('reject-serie').value;
+    const description = document.getElementById('reject-description').value;
+    const location = document.getElementById('reject-location').value;
+    const responsible = document.getElementById('reject-responsible').value;
+    const image = document.getElementById('reject-image').files[0]; // Imagen seleccionada por el usuario
+
+    // Validar que los datos del activo estén completos
+    if (!serie || !description || !location || !responsible) {
+        alert('Por favor, complete todos los campos del activo.');
+        return;
+    }
+
+    // Aquí podrías enviar los datos a un servidor o procesarlos según sea necesario
+    // Por ejemplo, enviando los datos junto con la imagen:
+    const formData = new FormData();
+    formData.append('serie', serie);
+    formData.append('description', description);
+    formData.append('location', location);
+    formData.append('responsible', responsible);
+    if (image) formData.append('image', image);
+
+    // Simulamos el envío de la solicitud (esto podría ser una llamada API real)
+    console.log("Solicitud de Rechazo Enviada:");
+    console.log("Activo:", serie, description, location, responsible);
+    console.log("Imagen:", image ? image.name : "Ninguna imagen seleccionada");
+
+    // Aquí podrías usar fetch para enviar los datos al servidor:
+    // fetch('/api/reject-asset', { method: 'POST', body: formData });
+
+    // Cerrar el modal después de "enviar" la solicitud
+    const rejectModal = bootstrap.Modal.getInstance(document.getElementById('rejectModal'));
+    rejectModal.hide();
+
+    // Mostrar un mensaje de éxito o realizar otras acciones
+    alert('Solicitud de rechazo enviada exitosamente.');
+}
+
+// Función para cargar el rol del usuario desde localStorage
+function loadUserRole() {
+        const userData = JSON.parse(localStorage.getItem('userData'));
+        if (userData) {
+            const role = userData.role;  // Obtener el rol del usuario
+            const adminText = document.getElementById('adminText');
+            const roleText = document.getElementById('roleText');
+            
+            // Cambiar el texto y los íconos según el rol
+            if (role === 'admin') {
+                adminText.textContent = 'Administrar';
+                roleText.textContent = 'Perfil';
+            } else if (role === 'moderador') {
+                adminText.textContent = 'Moderación';
+                roleText.textContent = 'Perfil';
+            } else if (role === 'usuario') {
+                adminText.textContent = 'Acciones';
+                roleText.textContent = 'Perfil';
+            }
+        }
+    }
+
+    // Llamar a la función para cargar el rol cuando la página cargue
+    window.onload = loadUserRole;
+
+    // Función de logout
+    function logout() {
+        localStorage.removeItem('isAuthenticated');
+        localStorage.removeItem('userData');
+        window.location.href = 'login.html';  // Redirigir al login después del logout
+    }
+
+    // Función para cargar el rol del usuario desde localStorage
+    function loadUserRole() {
+        const userData = JSON.parse(localStorage.getItem('userData'));
+        if (userData) {
+            const role = userData.role;  // Obtener el rol del usuario
+            const adminText = document.getElementById('adminText');
+            const roleText = document.getElementById('roleText');
+            const adminLink = document.getElementById('adminLink');
+
+            // Cambiar el texto y los íconos según el rol
+            if (role === 'admin') {
+                adminText.textContent = 'Administrar';
+                roleText.textContent = 'Perfil';
+            } else if (role === 'moderador') {
+                adminText.textContent = 'Administrar';
+                roleText.textContent = 'Perfil';
+            } else if (role === 'usuario') {
+                adminText.textContent = 'Acciones';
+                roleText.textContent = 'Perfil';
+
+                // Ocultar el link de administración si es usuario
+                adminLink.style.display = 'none';
+            }
+        }
+    }
+
+    // Llamar a la función para cargar el rol cuando la página cargue
+    window.onload = loadUserRole;
+
+    // Función de logout con confirm
+    function logout() {
+        const confirmLogout = confirm("¿Estás seguro que deseas cerrar sesión?");
+        if (confirmLogout) {
+            // Reiniciar el estado de autenticación
+            localStorage.setItem("isAuthenticated", "false");
+            localStorage.removeItem('userData');
+            
+            // Mensaje de despedida
+            alert("Hasta la próxima. Has cerrado sesión.");
+            
+            // Redirigir a la página de inicio de sesión
+            window.location.href = "login.html";
+        }
+    }
+    
+
+</script>
+</body>
+
+</html>
